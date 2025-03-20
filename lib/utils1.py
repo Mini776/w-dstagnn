@@ -128,7 +128,7 @@ def compute_val_loss_mstgcn(DEVICE, net, val_loader, criterion, sw, epoch, limit
     return validation_loss
 
 
-def predict_and_save_results_mstgcn(DEVICE, net, train_target_tensor, data_loader, data_target_tensor, global_step, _mean, _std, params_path, type):
+def predict_and_save_results_mstgcn(DEVICE, net, data_loader, data_target_tensor, global_step, _mean, _std, params_path, type):
     '''
 
     :param net: nn.Module
@@ -145,7 +145,7 @@ def predict_and_save_results_mstgcn(DEVICE, net, train_target_tensor, data_loade
     with torch.no_grad():
 
         data_target_tensor = data_target_tensor.cpu().numpy()
-        train_target_tensor = train_target_tensor.cpu().numpy()
+        #train_target_tensor = train_target_tensor.cpu().numpy()
 
         loader_length = len(data_loader)  # nb of batch
 
@@ -181,7 +181,7 @@ def predict_and_save_results_mstgcn(DEVICE, net, train_target_tensor, data_loade
         print('input:', input.shape)
         print('prediction:', prediction.shape)
         print('data_target_tensor:', data_target_tensor.shape)
-        print('train_target_tensor:', train_target_tensor.shape)
+        #print('train_target_tensor:', train_target_tensor.shape)
         output_filename = os.path.join(params_path, 'output_epoch_%s_%s' % (global_step, type))
         np.savez(output_filename, input=input, prediction=prediction, data_target_tensor=data_target_tensor)
 
